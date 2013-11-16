@@ -1,4 +1,4 @@
 patternate-ruby
 ===============
 
-The journey is the reward.
+The journey is the reward...
