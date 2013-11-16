@@ -1,4 +1,4 @@
-<%= @patterns.each do | pattern |%>
+<% Pattern.all.each do | pattern | %>
 <div class='pattern'>
   <h2><%= pattern.display_name %></h2>
   <p><%= pattern.description %></p>
