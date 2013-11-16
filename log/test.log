@@ -1,0 +1,768 @@
+  [1m[36m (53.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (33.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateDatabase (1)
+  [1m[35m (1.0ms)[0m  DROP TABLE `garment_type`
+  [1m[36m (20.7ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (12.0ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (15.0ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (1.2ms)[0m  DROP TABLE `pattern_company`
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (1.0ms)[0m  DROP TABLE `pattern_for`
+  [1m[36m (8.8ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (13.0ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (12.5ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (17.6ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (15.5ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (13.9ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (11.7ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (18.1ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (108.6ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36mSQL (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES (?)  [["version", "1"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (2.7ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (1.7ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[36mActiveRecord::SchemaMigration Load (1.7ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to FixDefault (2)
+  [1m[35m (13.7ms)[0m  ALTER TABLE `patterns` CHANGE `pattern_collection_id` `pattern_collection_id` int(11) DEFAULT NULL
+  [1m[36mSQL (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES (?)  [["version", "2"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+Started GET "/patterns" for 127.0.0.1 at 2013-10-27 20:47:42 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (2.3ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  Rendered patterns/index.html.erb within layouts/application (29.5ms)
+Completed 200 OK in 704ms (Views: 673.3ms | ActiveRecord: 4.7ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-27 20:47:43 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-27 20:47:43 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-27 20:49:19 +0000
+Processing by PatternsController#index as HTML
+  [1m[35mPattern Load (0.6ms)[0m  SELECT `patterns`.* FROM `patterns`
+  Rendered patterns/index.html.erb within layouts/application (6.6ms)
+Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 0.6ms)
+Started GET "/patterns" for 127.0.0.1 at 2013-10-27 20:49:52 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (2.6ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  Rendered patterns/index.html.erb within layouts/application (30.5ms)
+Completed 200 OK in 91ms (Views: 60.3ms | ActiveRecord: 5.6ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-27 20:49:53 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-27 20:49:53 +0000
+  [1m[36mPattern Load (3.0ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[36mPattern Load (3.1ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+Mysql::Error: Table 'patternate-scratch-test.pattern_companies' doesn't exist: SHOW FULL FIELDS FROM `pattern_companies`
+  [1m[36mPattern Load (3.6ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[35mPatternCompany Load (1.3ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`pattern_id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [[nil, 1]]
+Mysql::Error: Unknown column 'pattern_company.pattern_id' in 'where clause': SELECT  `pattern_company`.* FROM `pattern_company`  WHERE `pattern_company`.`pattern_id` = ?  ORDER BY `pattern_company`.`id` ASC LIMIT 1
+  [1m[36mPattern Load (2.3ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[36mPattern Load (2.0ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[35mPatternCompany Load (0.9ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mPattern Load (2.5ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[35mPatternCompany Load (0.7ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mPattern Load (1.0ms)[0m  [1mSELECT `patterns`.* FROM `patterns` ORDER BY `patterns`.`id` ASC LIMIT 1[0m
+  [1m[35mPatternCompany Load (2.3ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+Started GET "/patterns" for 127.0.0.1 at 2013-10-27 21:06:51 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (2.5ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (0.8ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  Rendered patterns/index.html.erb within layouts/application (71.4ms)
+Completed 200 OK in 156ms (Views: 123.4ms | ActiveRecord: 8.0ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-27 21:06:52 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-27 21:06:52 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-27 21:07:26 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (2.5ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (0.9ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  Rendered patterns/index.html.erb within layouts/application (65.1ms)
+Completed 200 OK in 133ms (Views: 99.0ms | ActiveRecord: 8.4ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-27 21:07:26 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-27 21:07:26 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 06:39:22 +0000
+Processing by PatternsController#index as HTML
+  [1m[35mPattern Load (2.3ms)[0m  SELECT `patterns`.* FROM `patterns`
+  [1m[36mPatternCompany Load (3.8ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  Rendered patterns/index.html.erb within layouts/application (41.0ms)
+Completed 200 OK in 72ms (Views: 47.2ms | ActiveRecord: 6.5ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 06:39:22 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 06:39:22 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 06:40:54 +0000
+Processing by PatternsController#index as HTML
+  [1m[35mPattern Load (0.5ms)[0m  SELECT `patterns`.* FROM `patterns`
+  [1m[36mPatternCompany Load (0.3ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  Rendered patterns/index.html.erb within layouts/application (26.8ms)
+Completed 200 OK in 29ms (Views: 26.5ms | ActiveRecord: 1.2ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 06:40:54 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 06:40:54 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 06:41:12 +0000
+Processing by PatternsController#index as HTML
+  [1m[35mPattern Load (1.5ms)[0m  SELECT `patterns`.* FROM `patterns`
+  [1m[36mPatternCompany Load (0.5ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  Rendered patterns/index.html.erb within layouts/application (20.8ms)
+Completed 200 OK in 23ms (Views: 19.2ms | ActiveRecord: 2.5ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 06:41:12 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 06:41:12 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 06:43:40 +0000
+Processing by PatternsController#index as HTML
+  [1m[35mPattern Load (2.8ms)[0m  SELECT `patterns`.* FROM `patterns`
+  [1m[36mPatternCompany Load (0.7ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.6ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mPatternCompany Load (1.7ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  Rendered patterns/index.html.erb within layouts/application (109.2ms)
+Completed 200 OK in 172ms (Views: 133.4ms | ActiveRecord: 6.3ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 06:43:41 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 06:43:41 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 06:45:30 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (2.5ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (0.9ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.6ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mPatternCompany Load (0.3ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.7ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  Rendered patterns/index.html.erb within layouts/application (87.1ms)
+Completed 200 OK in 99ms (Views: 86.6ms | ActiveRecord: 5.8ms)
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 06:45:30 +0000
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 06:45:30 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-10-28 07:39:50 +0000
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (46.3ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (92.8ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mPatternCompany Load (0.4ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.8ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (2.6ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  Rendered patterns/index.html.erb within layouts/application (544.9ms)
+Completed 200 OK in 818ms (Views: 500.1ms | ActiveRecord: 143.9ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-10-28 07:39:52 +0000
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-10-28 07:39:52 +0000
+Started GET "/patterns" for 127.0.0.1 at 2013-11-04 21:13:45 +0100
+Started GET "/patterns" for 127.0.0.1 at 2013-11-04 21:18:05 +0100
+Started GET "/patterns" for 127.0.0.1 at 2013-11-04 21:18:22 +0100
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (35.5ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (33.2ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mPatternCompany Load (0.3ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  Rendered patterns/index.html.erb within layouts/application (368.7ms)
+Completed 200 OK in 650ms (Views: 441.3ms | ActiveRecord: 129.7ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-11-04 21:18:23 +0100
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-11-04 21:18:23 +0100
+Started GET "/patterns" for 127.0.0.1 at 2013-11-04 21:22:01 +0100
+Processing by PatternsController#index as HTML
+  [1m[36mPattern Load (1.2ms)[0m  [1mSELECT `patterns`.* FROM `patterns`[0m
+  [1m[35mPatternCompany Load (0.4ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mPatternCompany Load (0.3ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `pattern_company`.* FROM `pattern_company` WHERE `pattern_company`.`id` = ? ORDER BY `pattern_company`.`id` ASC LIMIT 1  [["id", 5]]
+  Rendered patterns/index.html.erb within layouts/application (36.0ms)
+Completed 200 OK in 39ms (Views: 35.1ms | ActiveRecord: 2.6ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-11-04 21:22:01 +0100
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-11-04 21:22:01 +0100
+  [1m[36m (2.3ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.4ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (13.0ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (12.1ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (28.5ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (47.4ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (11.7ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (7.9ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (14.9ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (17.9ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (106.0ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (117.7ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (16.2ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (78.1ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (70.5ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (13.3ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (11.6ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (15.2ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (2.4ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (1.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (2.8ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.8ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.7ms)[0m  [1mDELETE FROM `pattern_collection`[0m
+  [1m[35mFixture Insert (0.6ms)[0m  INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+Mysql::Error: Unknown column 'string' in 'field list': INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (15.0ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (103.0ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (22.8ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (137.3ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (9.0ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (9.2ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (11.5ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (13.6ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (8.9ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (13.3ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (13.8ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (10.5ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (15.0ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (14.0ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (8.4ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (15.4ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (2.1ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (1.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mSQL (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue Patterns"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mSQL (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `pattern_company` (`name`) VALUES (?)[0m  [["name", "New Look"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mSQL (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `pattern_collection` (`name`, `pattern_company_id`) VALUES (?, ?)  [["name", "Anne Klein"], ["pattern_company_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mSQL (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `pattern_collection` (`name`, `pattern_company_id`) VALUES (?, ?)[0m  [["name", "Badgely Mishka"], ["pattern_company_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mSQL (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `patterns` (`description`, `line_drawing`, `main_image`, `pattern_collection_id`, `pattern_company_id`, `pattern_number`, `url`) VALUES (?, ?, ?, ?, ?, ?, ?)  [["description", "this is my description"], ["line_drawing", "http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif"], ["main_image", "http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg"], ["pattern_collection_id", 1], ["pattern_company_id", 1], ["pattern_number", "8372"], ["url", "http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `patterns` (`description`, `line_drawing`, `main_image`, `pattern_collection_id`, `pattern_company_id`, `pattern_number`, `url`) VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["description", "pattern 2"], ["line_drawing", "http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif"], ["main_image", "http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg"], ["pattern_collection_id", 2], ["pattern_company_id", 2], ["pattern_number", "1111"], ["url", "http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (15.6ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (75.1ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (13.5ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (77.4ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (88.5ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (16.0ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (12.9ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (18.2ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (17.0ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (13.7ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (86.8ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (87.8ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (7.5ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (11.6ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (35.2ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (75.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (14.1ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (3.6ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35mSQL (0.3ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM `pattern_collection`[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+Mysql::Error: Unknown column 'string' in 'field list': INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (12.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (31.3ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (15.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateDatabase (1)
+  [1m[35m (16.8ms)[0m  CREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB
+  [1m[36m (9.7ms)[0m  [1mCREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (17.3ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) 
+  [1m[36m (27.5ms)[0m  [1mCREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (8.7ms)[0m  CREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (9.3ms)[0m  [1mCREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB[0m
+  [1m[35m (14.8ms)[0m  CREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) 
+  [1m[36m (16.2ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) [0m
+  [1m[35m (10.4ms)[0m  CREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (12.7ms)[0m  [1mCREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) [0m
+  [1m[35m (11.9ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) 
+  [1m[36m (10.9ms)[0m  [1mCREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (15.1ms)[0m  CREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) 
+  [1m[36m (12.7ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) [0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES (?)[0m  [["version", "1"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to FixDefault (2)
+  [1m[36m (10.3ms)[0m  [1mALTER TABLE `patterns` CHANGE `pattern_collection_id` `pattern_collection_id` int(11) DEFAULT NULL[0m
+  [1m[35mSQL (1.3ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES (?)[0m  [["version", "2"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36m (7.2ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (40.6ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (13.9ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (17.0ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (100.8ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (8.2ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (7.5ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (10.8ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (10.8ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (8.3ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (14.9ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (13.7ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (8.5ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (19.2ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (24.9ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (28.6ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (125.9ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (2.9ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.4ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35mSQL (0.4ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM `pattern_collection`[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+Mysql::Error: Unknown column 'string' in 'field list': INSERT INTO `pattern_collection` (`string`, `int`, `id`) VALUES (NULL, NULL, 980190962)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (9.1ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.4ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (11.9ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (10.9ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (22.7ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (97.6ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (18.4ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (9.6ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (12.0ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (17.6ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (14.7ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (15.2ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (13.3ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (10.6ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (14.9ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (14.6ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (96.1ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (14.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (3.5ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.4ms)[0m  BEGIN
+-----------------------------------------------------------------------
+PatternTest: test_it_should_display_the_company_and_number_when_present
+-----------------------------------------------------------------------
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[36m (9.8ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (20.5ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (15.7ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (26.9ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (74.0ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (16.1ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (88.7ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (24.5ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (18.8ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (20.3ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (18.9ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (60.8ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (21.5ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (14.1ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (15.6ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (14.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (17.5ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (2.8ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (5.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+-----------------------------------------------------------------------
+PatternTest: test_it_should_display_the_company_and_number_when_present
+-----------------------------------------------------------------------
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36m (17.8ms)[0m  [1mDROP DATABASE IF EXISTS `patternate-scratch-test`[0m
+  [1m[35m (0.4ms)[0m  CREATE DATABASE `patternate-scratch-test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (12.8ms)[0m  [1mCREATE TABLE `garment_type` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128), `parent-id` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (14.4ms)[0m  CREATE TABLE `pattern_collection` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `slug` varchar(128), `pattern_company_id` int(11) DEFAULT 0) ENGINE=InnoDB
+  [1m[36m (20.7ms)[0m  [1mCREATE INDEX `pattern_company_id` USING btree ON `pattern_collection` (`pattern_company_id`) [0m
+  [1m[35m (6.8ms)[0m  CREATE TABLE `pattern_company` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE `pattern_for` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128), `slug` varchar(128)) ENGINE=InnoDB[0m
+  [1m[35m (9.5ms)[0m  CREATE TABLE `patterns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `pattern_company_id` int(11) DEFAULT 0, `pattern_number` varchar(128), `pattern_collection_id` int(11), `url` varchar(500), `main_image` varchar(500), `line_drawing` varchar(500), `description` varchar(2000)) ENGINE=InnoDB
+  [1m[36m (11.5ms)[0m  [1mCREATE INDEX `pattern_collection_id` USING btree ON `patterns` (`pattern_collection_id`) [0m
+  [1m[35m (13.3ms)[0m  CREATE INDEX `pattern_company_id` USING btree ON `patterns` (`pattern_company_id`) 
+  [1m[36m (11.8ms)[0m  [1mCREATE TABLE `patterns_garment_type` (`pattern_id` int(11), `garment_type_id` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (16.1ms)[0m  CREATE INDEX `garment_type_id` USING btree ON `patterns_garment_type` (`garment_type_id`) 
+  [1m[36m (16.5ms)[0m  [1mCREATE INDEX `pattern_id` USING btree ON `patterns_garment_type` (`pattern_id`) [0m
+  [1m[35m (12.3ms)[0m  CREATE TABLE `patterns_pattern_for` (`pattern_id` int(11), `pattern_for_id` int(11)) ENGINE=InnoDB
+  [1m[36m (20.2ms)[0m  [1mCREATE INDEX `pattern_for_id` USING btree ON `patterns_pattern_for` (`pattern_for_id`) [0m
+  [1m[35m (15.6ms)[0m  CREATE INDEX `pattern_id` USING btree ON `patterns_pattern_for` (`pattern_id`) 
+  [1m[36m (12.9ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (19.9ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (2.2ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('2')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('1')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (1.5ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (3.9ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.9ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.9ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (3.9ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mSQL (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO `pattern_company` (`name`) VALUES (?)  [["name", "Vogue"]]
+  [1m[36m (0.4ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `patterns` (`pattern_company_id`, `pattern_number`) VALUES (?, ?)[0m  [["pattern_company_id", 1], ["pattern_number", "1234"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
