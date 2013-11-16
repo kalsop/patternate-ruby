@@ -1,4 +1,5 @@
-<% Pattern.all.each do | pattern | %>
+<%= message_box %>
+<% @patterns.each do | pattern | %>
 <div class='pattern'>
   <h2><%= pattern.display_name %></h2>
   <p><%= pattern.description %></p>
