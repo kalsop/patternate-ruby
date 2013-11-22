@@ -1,0 +1,14 @@
+To dos:
+
+http://oliverands.com/victory-patterns/OLV-VP-Lolas-D.html
+Oliver and S patterns
+
+Make an 'API' so that I can make independent scraper files that get all the data, but that there is on consistent way of inputting it to the database
+
+download imagemagick
+convert -trim ~/Desktop/v1828.gif ~/Desktop/trimmed-image.gif
+
+Vogue, McCalls
+
+
+../hacking/img/line-drawing1.gif
