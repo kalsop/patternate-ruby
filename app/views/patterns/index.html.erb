@@ -1,10 +1,16 @@
 <%= message_box %>
+<!-- below logic needs to move into the helper and the markup should become a partial -->
+<% if cookies[:search].present? %>
+  <% cookies[:search].split("&").each do |value| %>
+    <span><%= value %></span>
+  <% end %>
+<% end %>
 <% @patterns.each do | pattern | %>
 <div class='pattern'>
   <h2><%= pattern.display_name %></h2>
   <p><%= pattern.description %></p>
-  <img src="<%= pattern.main_image %>">
-  <img src="<%= pattern.line_drawing %>">
+  <!-- <img src="<%= pattern.main_image %>"> -->
+  <!-- <img src="<%= pattern.line_drawing %>"> -->
   <a href="<%= pattern.url %>">More info</a>
 </div>
 <% end %>
