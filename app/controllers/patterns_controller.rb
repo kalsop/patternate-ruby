@@ -19,17 +19,31 @@ class PatternsController < ApplicationController
     end
   end
   
-  def create
-    redirect_to patterns_path
-    if not cookies[:search].nil?
+  def create  
+    if cookies[:search].present? && params[:search].present?
       updated_cookies = []
       updated_cookies.concat cookies[:search].split("&") 
-      
       updated_cookies << params[:search]
       cookies[:search] = updated_cookies
+    elsif params[:remove].present?
+      puts "** in the second if block"
+      term_to_remove = params[:remove]
+      all_terms = cookies[:search].split("&")
+      puts all_terms
+      puts term_to_remove.class
+      # all_terms - %w{term_to_remove}
+      # puts all_terms
+      # cookies[:search] = all_terms
+      all_terms.delete(term_to_remove)
+      puts all_terms
+      cookies[:search] = all_terms
+      puts cookies[:search]
+    elsif params[:clear].present?
+      cookies[:search] = []
     else
       cookies[:search] = [params[:search]]
     end
+    redirect_to patterns_path
   end
   
 end

@@ -9,8 +9,13 @@
 <body>
   <form method="POST">
     <input type="text" name="search">
-    <input type="submit">
+    <input type="submit" value="Find patterns">
   </form>
+  <form method="POST">
+    <input type="hidden" name="clear">
+    <input type="submit" value="Start again">
+  </form>
+  
   
 <%= yield %>
 
