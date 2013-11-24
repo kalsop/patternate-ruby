@@ -2,22 +2,38 @@
 <html>
 <head>
   <title>PatternateRuby</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="http://code.jquery.com/jquery.js"></script>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-  <form method="POST">
-    <input type="text" name="search">
-    <input type="submit" value="Find patterns">
-  </form>
-  <form method="POST">
-    <input type="hidden" name="clear">
-    <input type="submit" value="Start again">
-  </form>
-  
-  
-<%= yield %>
-
+  <header>
+			  <h1>Patternate</h1>
+			  <section>
+			    <p>Search for sewing patterns by style</p>
+          <form method="POST" class="search">
+            <input type="text" name="search" placeholder="e.g. Sleeveless">
+            <input type="submit" value="Fi">
+          </form>
+       <!-- <form method="POST">
+              <input type="hidden" name="clear">
+              <input type="submit" value="Start again" class="clear">
+            </form> -->      
+			  </section>
+		</header>		
+		<section role="main">
+    <div class="currentView">
+      <%= result_summary %>
+    </div><!--searchCriteria-->
+    <%= yield %>
+    </section>
+  <footer>
+    <h3>Thanks!</h3>
+  </footer>
 </body>
 </html>

@@ -2,46 +2,39 @@ class PatternsController < ApplicationController
   
   def index
     @patterns = Pattern.all
-    if not cookies[:search].nil?
-      all_terms = cookies[:search].split("&")
+    @search_terms = cookies[:search].nil? ? [] : cookies[:search].split("&")
+    @has_results = true
+    if not @search_terms.empty?
       sql_query = []
       sql_query_terms = []
-      all_terms.each do | term |
+      @search_terms.each do | term |
         sql_query << "description LIKE ?"
         sql_query_terms << "%#{term}%"
       end
       sql_query = sql_query.join(" AND ")
       @patterns = Pattern.where(sql_query, *sql_query_terms)
       if @patterns.empty?
-        @no_results = true
+        @has_results = false
         @patterns = Pattern.all
       end
     end
   end
   
   def create  
-    if cookies[:search].present? && params[:search].present?
-      updated_cookies = []
-      updated_cookies.concat cookies[:search].split("&") 
-      updated_cookies << params[:search]
-      cookies[:search] = updated_cookies
-    elsif params[:remove].present?
-      puts "** in the second if block"
-      term_to_remove = params[:remove]
-      all_terms = cookies[:search].split("&")
-      puts all_terms
-      puts term_to_remove.class
-      # all_terms - %w{term_to_remove}
-      # puts all_terms
-      # cookies[:search] = all_terms
-      all_terms.delete(term_to_remove)
-      puts all_terms
-      cookies[:search] = all_terms
-      puts cookies[:search]
-    elsif params[:clear].present?
+    @additional_term = params[:search]
+    @existing_terms = cookies[:search].nil? ? [] : cookies[:search].split("&")
+    @term_to_remove = params[:remove]
+    @clear_all_terms = params[:clear]
+    
+    if (not @existing_terms.empty?) && @additional_term.present?
+      cookies[:search] = @existing_terms << @additional_term
+    elsif @term_to_remove.present?
+      @existing_terms.delete(@term_to_remove)
+      cookies[:search] = @existing_terms
+    elsif @clear_all_terms.present?
       cookies[:search] = []
     else
-      cookies[:search] = [params[:search]]
+      cookies[:search] = [@additional_term]
     end
     redirect_to patterns_path
   end

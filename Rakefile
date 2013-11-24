@@ -3,4 +3,8 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+task :start do
+  `bundle exec rails s`
+end
+
 PatternateRuby::Application.load_tasks

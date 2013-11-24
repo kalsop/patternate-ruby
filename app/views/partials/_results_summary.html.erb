@@ -1,0 +1,10 @@
+<h2><%= message %></h2>
+<% search_terms.each_with_index do |term, index| %>
+<form method="post" class="removeButtons">
+  <input type="hidden" value="<%= term %>" id="<%= term %>" name="remove">
+  <input type="submit" value="<%= term %>  x" title="Remove <%= term %>">
+  <% if not search_terms.size-1 == index %>
+    <span> &amp; </span>
+  <% end %>
+</form>
+<% end%>
