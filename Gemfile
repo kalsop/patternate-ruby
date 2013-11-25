@@ -49,3 +49,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'responsive_images'
+
+group :production do
+  gem 'rails_12factor'
+end
