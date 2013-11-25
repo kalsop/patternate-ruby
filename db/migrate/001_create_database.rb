@@ -14,7 +14,7 @@ class CreateDatabase < ActiveRecord::Migration
     t.integer "pattern_company_id",             default: 0
   end
 
-  add_index "pattern_collection", ["pattern_company_id"], name: "pattern_company_id", using: :btree
+  add_index "pattern_collection", ["pattern_company_id"], name: "pattern_collection_pattern_company_id", using: :btree
 
   create_table "pattern_company", force: true do |t|
     t.string "name", limit: 128
@@ -36,24 +36,24 @@ class CreateDatabase < ActiveRecord::Migration
     t.string  "description",           limit: 2000
   end
 
-  add_index "patterns", ["pattern_collection_id"], name: "pattern_collection_id", using: :btree
-  add_index "patterns", ["pattern_company_id"], name: "pattern_company_id", using: :btree
+  add_index "patterns", ["pattern_collection_id"], name: "patterns_pattern_collection_id", using: :btree
+  add_index "patterns", ["pattern_company_id"], name: "patterns_pattern_company_id", using: :btree
 
   create_table "patterns_garment_type", id: false, force: true do |t|
     t.integer "pattern_id"
     t.integer "garment_type_id", default: 0
   end
 
-  add_index "patterns_garment_type", ["garment_type_id"], name: "garment_type_id", using: :btree
-  add_index "patterns_garment_type", ["pattern_id"], name: "pattern_id", using: :btree
+  add_index "patterns_garment_type", ["garment_type_id"], name: "patterns_garment_type_patterns_garment_type_id", using: :btree
+  add_index "patterns_garment_type", ["pattern_id"], name: "patterns_garment_type_pattern_id", using: :btree
 
   create_table "patterns_pattern_for", id: false, force: true do |t|
     t.integer "pattern_id"
     t.integer "pattern_for_id"
   end
 
-  add_index "patterns_pattern_for", ["pattern_for_id"], name: "pattern_for_id", using: :btree
-  add_index "patterns_pattern_for", ["pattern_id"], name: "pattern_id", using: :btree
+  add_index "patterns_pattern_for", ["pattern_for_id"], name: "patterns_pattern_for_pattern_for_id", using: :btree
+  add_index "patterns_pattern_for", ["pattern_id"], name: "patterns_pattern_for_pattern_id", using: :btree
 
 end
 
