@@ -8,8 +8,9 @@ class PatternsController < ApplicationController
       sql_query = []
       sql_query_terms = []
       @search_terms.each do | term |
+        downcase_term = term.downcase
         sql_query << "description LIKE ?"
-        sql_query_terms << "%#{term}%"
+        sql_query_terms << "%#{downcase_term}%"
       end
       sql_query = sql_query.join(" AND ")
       @patterns = Pattern.where(sql_query, *sql_query_terms)

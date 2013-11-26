@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PatternateRuby</title>
+  <title>Patternate - Find sewing patterns by style</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="http://code.jquery.com/jquery.js"></script>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
@@ -15,10 +15,10 @@
   <header>
 			  <h1>Patternate</h1>
 			  <section>
-			    <p>Search for sewing patterns by style</p>
+			    <p>Find sewing patterns by style</p>
           <form method="POST" class="search">
-            <input type="text" name="search" placeholder="e.g. Sleeveless">
-            <input type="submit" value="Fi">
+            <input type="text" name="search" placeholder="e.g. sleeveless">
+            <input type="submit" value="Find">
           </form>
        <!-- <form method="POST">
               <input type="hidden" name="clear">
@@ -33,7 +33,7 @@
     <%= yield %>
     </section>
   <footer>
-    <h3>Thanks!</h3>
+    <a href="#top" class="top">Back to top</a>
   </footer>
 </body>
 </html>

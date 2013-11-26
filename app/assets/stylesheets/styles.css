@@ -4,7 +4,7 @@ body {
     line-height: 25px;
 }
 
-h1, h2, summary {
+h1, h2, summary, header section p, header section input[type=submit] {
     font-family: 'Arvo', Georgia, Times, serif;
 }
 
@@ -59,6 +59,15 @@ summary {
   cursor: pointer;
 }
 
+.top {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  padding: 10px;
+  text-decoration:none;
+  background: gray;
+  opacity: 0.8;
+  color: #000;}
 
  
 
@@ -108,10 +117,14 @@ input:focus, select:focus, textarea:focus, button:focus, summary:focus {
 }
 
 .removeButtons {
-   margin-left: 10px;
+   /*margin-left: 10px;*/
+   display:inline;
 
 }
 
+.removeButtons span {
+  font-size: 1.4em;
+}
 /*.removeTag {
   display:inline;
   background: #ded7aa;
@@ -121,7 +134,7 @@ input:focus, select:focus, textarea:focus, button:focus, summary:focus {
   border-radius: 5px;
 }*/
 
-.removeTag input[type=submit] {
+.currentView input[type=submit] {
   margin: 0;
   border: none;
   padding: 5px;
@@ -131,6 +144,7 @@ input:focus, select:focus, textarea:focus, button:focus, summary:focus {
   background: #ded7aa;
   color: #615243;
   font-size: 1.4rem;
+  margin-top: -5px;
 
 }
 
@@ -138,7 +152,7 @@ input:focus, select:focus, textarea:focus, button:focus, summary:focus {
   vertical-align: top;
 }
 
-/*@media only screen and (max-width: 640px) {*/
+
 
 header form.search {
  margin: 0px auto;
@@ -149,7 +163,7 @@ header form.search {
 }
 
 .search input[type=text] {
-  font-size: 1.5em;
+  font-size: 1.6em;
   width: 70%;
   padding: 0;
   margin: 0px auto;
@@ -178,26 +192,36 @@ header form.search {
 }
 
 .currentView {
-  padding: 20px;
+  padding: 20px 15px 15px 15px;
   background: #615243;
   color: #fff;
-  margin: 0 -10px 10px -10px;
-  
+  margin: 0 -10px 10px -5px;
+    min-height: 30px;
 }
 
 .currentView h2 {
+   display: inline;
+  float: left;
+  margin-right: 10px;
+  
 
 }
 
 .currentView h2.currentViewTerms {
-   display: inline;
-  float: left;
-  padding-top: 6px;
-  margin-right: 10px; 
+ 
 }
 
 
 .pattern img {
   width: 98%;
 }
-/*} /* end @media only screen and (max-width: 640px) */
+@media only screen and (max-width: 640px) {
+  .search input[type=submit] {
+    width: 25%;
+    padding: 5px 10px;
+  }
+  .search input[type=text] {
+    width: 63%;
+  }
+
+} /* end @media only screen and (max-width: 640px) 
