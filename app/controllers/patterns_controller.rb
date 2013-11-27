@@ -28,7 +28,10 @@ class PatternsController < ApplicationController
     @clear_all_terms = params[:clear]
     
     if (not @existing_terms.empty?) && @additional_term.present?
-      cookies[:search] = @existing_terms << @additional_term
+      # does new term already exist in search terms? If so, don't add it to search terms - each do
+      if not @existing_terms.include? @additional_term
+        cookies[:search] = @existing_terms << @additional_term
+      end
     elsif @term_to_remove.present?
       @existing_terms.delete(@term_to_remove)
       cookies[:search] = @existing_terms
