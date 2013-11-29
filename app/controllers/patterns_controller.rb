@@ -9,10 +9,14 @@ class PatternsController < ApplicationController
       sql_query_terms = []
       @search_terms.each do | term |
         downcase_term = term.downcase
-        sql_query << "description LIKE ?"
-        sql_query_terms << "%#{downcase_term}%"
+        # it's not 
+        
+        sql_query << "description ILIKE ?"
+        sql_query_terms << "% #{downcase_term} %"
       end
       sql_query = sql_query.join(" AND ")
+      # need to put in a OR query as well to search pattern company, collection and pattern number
+      # e.g. WHERE description ilike [terms] OR pattern_company (get the name ahead of time) ILIKE [terms] OR collection ilike [terms] OR pattern number ILIKE [terms]
       @patterns = Pattern.where(sql_query, *sql_query_terms)
       if @patterns.empty?
         @has_results = false
