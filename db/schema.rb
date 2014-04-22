@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 20140420234101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2) do
     t.string  "main_image",            limit: 500
     t.string  "line_drawing",          limit: 500
     t.string  "description",           limit: 2000
+    t.string  "pattern_name"
   end
 
   add_index "patterns", ["pattern_collection_id"], name: "patterns_pattern_collection_id", using: :btree
