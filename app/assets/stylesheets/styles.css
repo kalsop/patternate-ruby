@@ -21,6 +21,10 @@ p {
   padding: 5px;
   }
 
+details p:nth-child(3) {
+  margin-bottom: 15px;
+}
+
 input {
   -webkit-appearance: none;
 }
@@ -31,7 +35,14 @@ input[type=text] {
 
 
 summary {
-  padding: 5px;
+  padding: 5px 15px;
+  margin: -10px;
+  margin-bottom: 10px;
+  background: #efefef;
+}
+
+summary:hover {
+  background: #ccc;
 }
 
 details[open] summary {
@@ -39,11 +50,11 @@ details[open] summary {
 }
 
 summary::-webkit-details-marker {
-  display: none
+/*  display: none*/
 }
 summary:after {
-/*  background: black; 
-  content: "+"; 
+  background: black; 
+/*  content: "+"; */
   color: #fff; 
   float: left; 
   font-weight: bold; 
@@ -52,7 +63,7 @@ summary:after {
   text-align: center; 
   width: 20px;
   height:20px;
-  margin-right: 10px;*/
+  margin-right: 10px;
 }
 
 summary {
@@ -97,11 +108,7 @@ header section p {
 }
 
 
-.pattern {
-  border-bottom: 1px solid #ccc;
-  margin: -5px;
-  padding: 10px;
-}
+
 
 section[role=main] {
   padding: 5px;
@@ -148,9 +155,7 @@ input:focus, select:focus, textarea:focus, button:focus, summary:focus {
 
 }
 
-.pattern img {
-  vertical-align: top;
-}
+
 
 
 
@@ -212,10 +217,46 @@ header form.search {
 }
 
 
-.pattern img {
-  width: 98%;
+.pattern {
+border: 1px solid #ccc;
+margin: 10px;
+padding: 10px;
+width: 47%;
+box-sizing: border-box;
+
+/*float: left;*/
+display: inline-block;
+    vertical-align: top;
 }
-@media only screen and (max-width: 640px) {
+
+
+
+
+.pattern img {
+  max-width: 45%;
+  vertical-align: top;
+}
+
+.pattern img.fullWidth {
+  max-width: 90%;
+}
+
+.details p:first-child {
+  background: #ccc;
+}
+
+@media only screen and (max-width: 800px) {
+ /* .pattern img {
+   width: 98%;
+ }*/
+ .pattern {
+border: 1px solid #ccc;
+margin: 5px;
+padding: 10px;
+width: 93%;
+/* display: inline; */
+float: left;
+}
   .search input[type=submit] {
     width: 25%;
     padding: 5px 10px;

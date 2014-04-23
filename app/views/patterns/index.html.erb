@@ -3,9 +3,13 @@
   <details>
     <summary><%= pattern.display_name %></summary>
     <p><%= pattern.description %></p>
-    <p><a href="<%= pattern.url %>">Buy pattern</a></p>
+    <p><a href="<%= pattern.url %>">View this pattern on the <%= pattern.pattern_company.name %> website</a></p>
   </details>
-  <img src="<%= pattern.main_image %>">
-  <img src="<%= pattern.line_drawing %>">
+  <% if pattern.line_drawing != pattern.main_image %>
+    <img src="<%= pattern.main_image %>">
+    <img src="<%= pattern.line_drawing %>">
+  <% else %>
+    <img class="fullWidth" src="<%= pattern.main_image %>">
+  <% end %>
 </article>
 <% end %>
