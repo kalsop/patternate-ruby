@@ -241,6 +241,10 @@ display: inline-block;
   max-width: 90%;
 }
 
+.pattern a.images {
+  cursor: default;
+}
+
 .details p:first-child {
   background: #ccc;
 }
