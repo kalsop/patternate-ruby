@@ -255,9 +255,7 @@ display: inline-block;
    width: 98%;
  }*/
 
-body {
-    line-height: 20px;
-}
+
 
 section[role=main] {
 padding: 0px;
@@ -279,11 +277,15 @@ box-sizing: border-box;
 }
 
 summary {
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin: 0px;
   margin-bottom: 10px;
   margin-top: 10px;
   background: #efefef;
+}
+
+details p {
+  padding: 5px 15px;
 }
 
   .search input[type=submit] {
