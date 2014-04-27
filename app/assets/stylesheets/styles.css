@@ -241,8 +241,9 @@ display: inline-block;
   max-width: 90%;
 }
 
-.pattern a.images {
+.patternImages a img {
   cursor: default;
+  border: none;
 }
 
 .details p:first-child {
@@ -253,14 +254,38 @@ display: inline-block;
  /* .pattern img {
    width: 98%;
  }*/
- .pattern {
-border: 1px solid #ccc;
-margin: 5px;
-padding: 10px;
-width: 93%;
-/* display: inline; */
-float: left;
+
+body {
+    line-height: 20px;
 }
+
+section[role=main] {
+padding: 0px;
+}
+
+ .pattern {
+border: none;
+margin: 0px;
+margin-bottom: 5px;
+padding: 0;
+width: 100%;
+/* display: inline; */
+
+box-sizing: border-box;
+}
+
+.patternImages {
+  padding: 5px;
+}
+
+summary {
+  padding: 5px 15px;
+  margin: 0px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background: #efefef;
+}
+
   .search input[type=submit] {
     width: 25%;
     padding: 5px 10px;
