@@ -2,7 +2,7 @@
 <% search_terms.each_with_index do |term, index| %>
 <form method="post" class="removeButtons">
   <input type="hidden" value="<%= term %>" id="<%= term %>" name="remove">
-  <input type="submit" value="<%= term %>  x" title="Remove <%= term %>" onclick="ga('send', 'event', 'Remove term', 'Click', '<%= term %>');">
+  <input type="submit" value="<%= term %>  x" title="Remove <%= term %>" onClick="ga('send', 'event', 'Remove term', 'Click', '<%= term %>');">
   <% if not search_terms.size-1 == index %>
     <span> &amp; </span>
   <% end %>

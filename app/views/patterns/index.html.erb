@@ -1,7 +1,7 @@
 <% @patterns.each do | pattern | %>
 <article class='pattern'>
-  <details>
-    <summary onClick="ga('send', 'event', 'Title', 'Expand', '<%= pattern.display_name %>');"><%= pattern.display_name %></summary>
+  <details onClick="ga('send', 'event', 'Title', 'Expand', '<%= pattern.display_name %>');">
+    <summary><%= pattern.display_name %></summary>
     <p><%= pattern.description %></p>
     <p><a href="<%= pattern.url %>" onClick="ga('send', 'event', 'Pattern URL', 'Click', '<%= pattern.display_name %>');">View this pattern on the <%= pattern.pattern_company.name %> website</a></p>
   </details>
