@@ -1,20 +1,20 @@
 <% @patterns.each_with_index do | pattern, index | %>
 <article class='pattern'>
-  <details onClick="ga('send', 'event', 'Title', 'Expand', '<%= pattern.display_name %>', '<%= index %>');">
+  <details onClick="ga('send', 'event', 'Title', 'Expand', '<%= pattern.display_name %>', '<% index %>');">
     <summary><%= pattern.display_name %></summary>
     <p><%= pattern.description %></p>
-    <p><a href="<%= pattern.url %>" onClick="ga('send', 'event', 'Pattern URL', 'Click', '<%= pattern.display_name %>', '<%= index %>');">View this pattern on the <%= pattern.pattern_company.name %> website</a></p>
+    <p><a href="<%= pattern.url %>" onClick="ga('send', 'event', 'Pattern URL', 'Click', '<%= pattern.display_name %>', '<% index %>');">View this pattern on the <%= pattern.pattern_company.name %> website</a></p>
   </details>
   <div class="patternImages"
     <% if pattern.line_drawing != pattern.main_image %>
-      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Main image', '<%= pattern.display_name %>, '<%= index %>');">
+      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Main image', '<%= pattern.display_name %>', '<% index %>');">
         <img src="<%= pattern.main_image %>">
       </a>
-      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Line art', '<%= pattern.display_name %>, '<%= index %>');">
+      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Line art', '<%= pattern.display_name %>', '<% index %>');">
         <img src="<%= pattern.line_drawing %>">
       </a>
     <% else %>
-      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Combined main image/line art', '<%= pattern.display_name %>, '<%= index %>');">
+      <a href="javascript:void(0)" onClick="ga('send', 'event', 'Images', 'Combined main image/line art', '<%= pattern.display_name %>', '<% index %>');">
         <img class="fullWidth" src="<%= pattern.main_image %>">
       </a>
     <% end %>
