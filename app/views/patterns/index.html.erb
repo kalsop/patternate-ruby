@@ -6,7 +6,7 @@
     <p><a href="<%= pattern.url %>" onClick="_gaq.push(['_trackEvent', 'Pattern URL', 'Click', '<%= pattern.display_name %>']);">View this pattern on the <%= pattern.pattern_company.name %> website</a></p>
   </details>
   <% if pattern.line_drawing != pattern.main_image %>
-    <a href="#" class="images" onClick="_gaq.push(['_trackEvent', 'Images', 'Main image', '<%= pattern.display_name %>']);">
+    <a href="javascript:void(0)" class="images" onClick="ga('send', 'Images', 'Main image', '<%= pattern.display_name %>');">
       <img src="<%= pattern.main_image %>">
     </a>
     <a href="javascript:void(0)" class="images" onClick="_gaq.push(['_trackEvent', 'Images', 'Line art', '<%= pattern.display_name %>']);">
