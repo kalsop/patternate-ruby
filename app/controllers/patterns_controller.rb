@@ -1,13 +1,15 @@
 class PatternsController < ApplicationController
   
+include PatternSearchHelper
+  
   def index
     @patterns = Pattern.all
-    @search_terms = cookies[:search].nil? ? [] : cookies[:search].split("&")
+    @existing_search_terms = get_search_terms cookies[:search]
     @has_results = true
-    if not @search_terms.empty?
+    if not @existing_search_terms.empty?
       sql_query = []
       sql_query_terms = []
-      @search_terms.each do | term |
+      @existing_search_terms.each do | term |
         downcase_term = term.downcase
         # it's not 
         
@@ -27,17 +29,17 @@ class PatternsController < ApplicationController
   
   def create  
     @additional_term = params[:search]
-    @existing_terms = cookies[:search].nil? ? [] : cookies[:search].split("&")
+    @existing_search_terms = get_search_terms cookies[:search]
     @term_to_remove = params[:remove]
     @clear_all_terms = params[:clear]
     
-    if (not @existing_terms.empty?) && @additional_term.present?
+    if (not @existing_search_terms.empty?) && @additional_term.present?
       # does new term already exist in search terms? If so, don't add it to search terms - each do
-      if not @existing_terms.include? @additional_term
-        cookies[:search] = @existing_terms << @additional_term.downcase
+      if not @existing_search_terms.include? @additional_term
+        cookies[:search] = @existing_search_terms << @additional_term.downcase
       end
     elsif @term_to_remove.present?
-      @existing_terms.delete(@term_to_remove)
+      @existing_search_terms.delete(@term_to_remove)
       cookies[:search] = @existing_terms
     elsif @clear_all_terms.present?
       cookies[:search] = []

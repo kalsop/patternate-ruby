@@ -3,3 +3,6 @@ vendor/
 log/
 .DS_Store
 scraper/
+to-do.txt
+notes.rtf
+live-database-backup.backup

@@ -12,3 +12,9 @@ Vogue, McCalls
 
 
 ../hacking/img/line-drawing1.gif
+
+
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+add img enlargement feature 
+
