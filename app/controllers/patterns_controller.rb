@@ -31,7 +31,6 @@ include PatternSearchHelper
     @additional_term = params[:search]
     @existing_search_terms = get_search_terms cookies[:search]
     @term_to_remove = params[:remove]
-    @clear_all_terms = params[:clear]
     
     if (not @existing_search_terms.empty?) && @additional_term.present?
       # does new term already exist in search terms? If so, don't add it to search terms - each do
@@ -41,8 +40,6 @@ include PatternSearchHelper
     elsif @term_to_remove.present?
       @existing_search_terms.delete(@term_to_remove)
       cookies[:search] = @existing_terms
-    elsif @clear_all_terms.present?
-      cookies[:search] = []
     else
       cookies[:search] = [@additional_term]
     end
