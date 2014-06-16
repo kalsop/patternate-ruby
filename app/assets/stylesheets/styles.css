@@ -70,15 +70,21 @@ summary {
   cursor: pointer;
 }
 
-.top {
+.top, .feedback {
   position: fixed;
-  bottom: 5px;
+  bottom: 10px;
   right: 5px;
   padding: 10px;
   text-decoration:none;
   background: gray;
   opacity: 0.8;
-  color: #000;}
+  color: #fff;
+  letter-spacing: 1px;}
+
+.feedback {
+  left: 5px;
+  width: 110px;
+}
 
  
 
