@@ -5,7 +5,7 @@ class Pattern < ActiveRecord::Base
   scope :fuzzy_search, lambda { |terms|
     return self.all if terms.empty?
  
-    composed_scope = self.scoped.joins(:pattern_company).joins(:pattern_collection)
+    composed_scope = self.scoped.joins(:pattern_company)
  
     terms.each do |term|
       term = '%' << term << '%'
@@ -13,8 +13,7 @@ class Pattern < ActiveRecord::Base
       'description ILIKE :term 
       OR pattern_number ILIKE :term 
       OR pattern_name ILIKE :term 
-      OR pattern_company.name ILIKE :term 
-      OR pattern_collection.name ILIKE :term', {:term => term})
+      OR pattern_company.name ILIKE :term', {:term => term})
     end
  
     composed_scope
