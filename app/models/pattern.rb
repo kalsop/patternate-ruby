@@ -21,7 +21,7 @@ class Pattern < ActiveRecord::Base
   }
   
   def display_name
-    if self.pattern_company.name =='Burda'
+    if self.pattern_company.name =='BurdaStyle'
       self.pattern_company.name + ' ' + self.pattern_name + ' - ' + self.pattern_collection.name
     elsif self.pattern_number.nil?
       self.pattern_company.name + ' ' + self.pattern_name
