@@ -10,7 +10,6 @@ include AnalyticsHelper
     @has_results = true
     @patterns = Pattern.fuzzy_search(@existing_search_terms).all
     if @patterns.empty?
-      @patterns = Pattern.all
       @has_results = false
     end
   end
