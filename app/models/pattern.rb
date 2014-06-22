@@ -7,13 +7,27 @@ class Pattern < ActiveRecord::Base
  
     composed_scope = self.scoped.joins(:pattern_company)
  
+    # terms.each do |term|
+    #   term = '%' << term << '%'
+    # 
+    #   composed_scope = composed_scope.where(
+    #   'description ILIKE :term 
+    #   OR pattern_number ILIKE :term 
+    #   OR pattern_name ILIKE :term 
+    #   OR pattern_company.name ILIKE :term', {:term => term})
+    # end
+    # 
+    # 
+    # 
+      
     terms.each do |term|
+      term_in_description = '% ' << term << '%'
       term = '%' << term << '%'
       composed_scope = composed_scope.where(
-      'description ILIKE :term 
+      'description ILIKE :term_in_description 
       OR pattern_number ILIKE :term 
       OR pattern_name ILIKE :term 
-      OR pattern_company.name ILIKE :term', {:term => term})
+      OR pattern_company.name ILIKE :term', {:term => term, :term_in_description => term_in_description})
     end
  
     composed_scope
