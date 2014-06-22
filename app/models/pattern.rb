@@ -6,20 +6,7 @@ class Pattern < ActiveRecord::Base
     return self.all if terms.empty?
  
     composed_scope = self.scoped.joins(:pattern_company)
- 
-    # terms.each do |term|
-    #   term = '%' << term << '%'
-    # 
-    #   composed_scope = composed_scope.where(
-    #   'description ILIKE :term 
-    #   OR pattern_number ILIKE :term 
-    #   OR pattern_name ILIKE :term 
-    #   OR pattern_company.name ILIKE :term', {:term => term})
-    # end
-    # 
-    # 
-    # 
-      
+       
     terms.each do |term|
       term_in_description = '% ' << term << '%'
       term = '%' << term << '%'
