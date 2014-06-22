@@ -9,6 +9,7 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "jquery.cookie", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery.lazyload", "data-turbolinks-track" => true %>
   
   
   <%= csrf_meta_tags %>
@@ -24,11 +25,17 @@
 
       ga('create', 'UA-50412074-1', 'patternate.herokuapp.com');
       ga('send', 'pageview');
+      
+      $(function() {
+        $("img.lazy").lazyload();
+      });
 
     </script>
     
 
   <%= javascript_include_tag "custom_variables", "data-turbolinks-track" => true %>
+  
+  
 
 
 </head>
