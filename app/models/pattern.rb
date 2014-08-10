@@ -5,7 +5,7 @@ class Pattern < ActiveRecord::Base
   scope :fuzzy_search, lambda { |terms|
     return self.order('id DESC') if terms.empty?
  
-    composed_scope = self.scoped.joins(:pattern_company)
+    composed_scope = self.scoped.joins(:pattern_company).order('id DESC')
        
     terms.each do |term|
       term_in_description = '% ' << term << '%'
