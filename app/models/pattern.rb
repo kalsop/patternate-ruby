@@ -3,7 +3,7 @@ class Pattern < ActiveRecord::Base
   belongs_to :pattern_collection
   
   scope :fuzzy_search, lambda { |terms|
-    return self.all if terms.empty?
+    return self.order('id DESC') if terms.empty?
  
     composed_scope = self.scoped.joins(:pattern_company)
        
