@@ -3,18 +3,65 @@ To dos:
 http://oliverands.com/victory-patterns/OLV-VP-Lolas-D.html
 Oliver and S patterns
 
-Make an 'API' so that I can make independent scraper files that get all the data, but that there is on consistent way of inputting it to the database
-
-download imagemagick
-convert -trim ~/Desktop/v1828.gif ~/Desktop/trimmed-image.gif
-
-Vogue, McCalls
-
 
 ../hacking/img/line-drawing1.gif
 
 
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-
 add img enlargement feature 
+
+TECH ENHANCEMENTS
+
+- if any images or links are broken, do not show the pattern
+- host own images; http://cloudinary.com/
+- API for scraping
+- trim whitespace of line art; download imagemagick; convert -trim ~/Desktop/v1828.gif ~/Desktop/trimmed-image.gif; 
+
+FEATURES
+
+Search by:
+* paper or pdf
+* instruction language
+* seam allowances included
+* for wovens, stretch wovens, or knits
+* with pockets
+* size range (kids, plus, petites, maternity)
+* show only X company, or not X company's patterns
+* vintage
+*fabric type
+
+Single 'google'-style query e.g. jersey sheath dress
+Don't have 'remove' terms' // or if search terms are still active, keep then in the search box, like google does
+I have 2m of 150cm wide lightweight jersey - show me all the patterns I could make with this.
+
+Make it obvious when there are no results, and a direction on what to do next
+
+Prompt people in to what to search for - you can't always think of the words off the top of your head
+Use a taxonomy e.g. neckline: sweetheart, keyhole, scoop
+Search by TagA, then in the TagA result set, show a list of other tags in that result set to help refine down the search
+
+Pattern companies to index:
+- Vogue
+- Mccalls
+- Butterick
+- KwikSew
+- New look
+- Simplicity
+- Burdastyle
+- Burda
+- StyleArc
+- Papercut patterns
+- Sewaholic
+- Colette
+- Fehr Trade
+- Deer and Doe
+- Grainline Studio
+- By Hand London
+- Megan Nielsen
+- Hot Patterns
+- Jalie
+- Marfy
+
+
+
+
 
