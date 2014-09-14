@@ -10,7 +10,7 @@ include AnalyticsHelper
     
     @existing_search_terms = get_search_terms cookies[:search]
     @has_results = true
-    @patterns = Pattern.my_search(@existing_search_terms).all
+    @patterns = Pattern.my_search(@existing_search_terms)
     if @patterns.empty?
       @has_results = false
     end

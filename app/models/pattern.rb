@@ -29,17 +29,18 @@ hash_of_patterns_matching_all_styles.each do |match|
   patterns_matching_all_styles << match.first
 end
 
-all_the_patterns = []
-patterns_matching_all_styles.each do | pattern | 
-  single_pattern = self.where(patterns: {id: pattern})
-  # this creates an array
-  all_the_patterns << single_pattern
-  # then this is an array of arrays
-end
-
-all_the_patterns.each do |kkk|
-  puts kkk
-end
+self.find(patterns_matching_all_styles)
+# all_the_patterns = []
+# patterns_matching_all_styles.each do | pattern | 
+#   single_pattern = self.where(patterns: {id: pattern})
+#   # this creates an array
+#   all_the_patterns << single_pattern
+#   # then this is an array of arrays
+# end
+# 
+# all_the_patterns.each do |kkk|
+#   puts kkk
+# end
 
 
 }
