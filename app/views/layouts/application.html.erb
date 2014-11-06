@@ -3,13 +3,18 @@
 <head>
   <title>Patternate - Find sewing patterns by style</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="http://code.jquery.com/jquery.js"></script>
 
-
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  
+  
+   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+   <%= javascript_include_tag "jquery.-1.11.1", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery-ui", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "jquery.cookie", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "jquery.lazyload", "data-turbolinks-track" => true %>
+   <%= javascript_include_tag "custom_variables", "data-turbolinks-track" => true %>
+
+ 
   
   
   <%= csrf_meta_tags %>
@@ -17,23 +22,49 @@
   <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
   
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-50412074-1', 'patternate.herokuapp.com');
-      ga('send', 'pageview');
-      
-      $(function() {
-        $("img.lazy").lazyload();
-      });
-
-    </script>
+    ga('create', 'UA-50412074-1', 'patternate.herokuapp.com');
+    ga('send', 'pageview');
+  
+    $(function() {
+      $("img.lazy").lazyload();
+    });
+  </script>
+    
+  
+  
+  
+  
+  
+  <script>
+  $(function() {
+    var availableTags = [
+      "pockets",
+      "lined",
+      "sleeves",
+      "fitted",
+      "collar",
+      "sleeveless",
+      "peplum",
+      "flounce",
+      "drape"
+    ];
+    
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  });
+  </script>
+    
     
 
-  <%= javascript_include_tag "custom_variables", "data-turbolinks-track" => true %>
+
+ 
   
   
 
@@ -43,12 +74,18 @@
   <header>
 			  <h1>Patternate</h1>
 
+
+
 			  
 			  <section>
 			    <p>Find sewing patterns by style</p>
           <form method="POST" class="search">
-            <input type="text" name="search" placeholder="e.g. sleeves">
+          <div class="ui-widget">
+   <label for="tags">Search</label>
+            <input type="text" name="search" placeholder="e.g. sleeves" id="tags" class="ui-autocomplete-input" autocomplete="off">
+         
             <input type="submit" value="Find" onClick="ga('send', 'event', 'Search', 'Click');">
+            </div>
           </form>     
 			  </section>
 		</header>		
