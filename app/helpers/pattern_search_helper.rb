@@ -1,10 +1,9 @@
 module PatternSearchHelper
 
 def get_search_terms search_cookie_value
+ 
+  search_cookie_value.nil? ? [] : search_cookie_value.split("&")    
 
-  search_cookie_value.nil? ? [] : search_cookie_value.split("&")
-
-  
 end
 
 def update_search_terms additional_term, existing_search_terms, term_to_remove
