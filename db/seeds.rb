@@ -24,3 +24,5 @@ url: 'http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174',
 main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg', 
 line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'pattern 2'}
 ])
+
+Style.create([{name: 'sleeves'},{name: 'dress'}])
