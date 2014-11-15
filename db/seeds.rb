@@ -25,4 +25,4 @@ main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/
 line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'pattern 2'}
 ])
 
-Style.create([{name: 'sleeves'},{name: 'dress'}])
+Style.create([{name: 'sleeves'},{name: 'dress'},{name: 'lined'}])
