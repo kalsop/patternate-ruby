@@ -38,31 +38,6 @@ def pattern_collection
   pattern_collection_id
 end
 
-def garment_type
-  garment_type_string = @browser.find_element(:id, 'product_name_new').text
-  matched_words = []
-  ["jacket", "dress", "top", "shorts", "pants", "petite", "blouse", "shirt", "tunic", "coat", "cape", "jumpsuit", "skirt", "vest", "robe", "gown", "corset", "maternity", "jeans", "fitting shell"].each do |fancy_word|
-    case_insensitive_garment_type = garment_type_string.downcase
-    if case_insensitive_garment_type.include? fancy_word
-      rs = @con.exec("select id from garment_type where lower(name) = '#{fancy_word}'")
-      rs.each do |row|
-        row.each do | row_value |
-          matched_words << row_value
-        end
-      end
-    end
-  end
-  matched_words
-end
-
-def pattern_for
-  pattern_for_string = @browser.find_element(:id, 'product_name_new').text.downcase
-  {"men" => 1,"misses" => 2}.each_pair do |gender, id |
-    return id if pattern_for_string.include? gender
-  end
-end
-
-
 
 def pattern_description
   description = proc { @browser.find_element(:css, '#product_vertical_bottom #included_content table tbody tr:nth-of-type(1) td') }
@@ -160,7 +135,7 @@ urls.each do |url|
 #http://shops.mccall.com/f2704-products-47666.php?page_id=3453
 #http://voguepatterns.mccall.com/v1165-products-10765.php?page_id=852
 
-patterns = {:pattern_number => pattern_number, :pattern_collection => pattern_collection, :pattern_description => pattern_description, :pattern_for => pattern_for, :pattern_fabric => pattern_fabric, :garment_type => garment_type, :sizes => sizes, :images => images, :line_art => line_art, :url => pattern_page_url}
+patterns = {:pattern_number => pattern_number, :pattern_collection => pattern_collection, :pattern_description => pattern_description, :pattern_fabric => pattern_fabric, :sizes => sizes, :images => images, :line_art => line_art, :url => pattern_page_url}
 
 
 query = "INSERT INTO patterns(pattern_company_id, 
@@ -188,15 +163,6 @@ if rs_already_exists.entries.size == 0
 
 end
  
-
-    
-File.open('/Users/kalsop/Documents/Personal/Dev/patternate-scratch/patternate/webdriver/results', 'a+') do | file |
-  patterns.each_value do | value | 
-    file.write("#{value} || ")
-  end
-  file.write "\n\n" 
-end
-  
 rescue Exception => e
   puts "!! ERROR SCRAPING PAGE :"
   puts "URL:"
