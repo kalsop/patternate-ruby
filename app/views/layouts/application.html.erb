@@ -31,17 +31,7 @@
  
   <script>
   $(function() {
-    var availableTags = [
-      "pockets",
-      "lined",
-      "sleeves",
-      "fitted",
-      "collar",
-      "sleeveless",
-      "peplum",
-      "flounce",
-      "drape"
-    ];
+    var availableTags = <%= raw @styles %>;
     function split( val ) {
       return val.split( /,\s*/ );
     }

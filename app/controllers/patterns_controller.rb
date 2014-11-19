@@ -23,6 +23,7 @@ include AnalyticsHelper
     if @patterns.empty?
       @has_results = false
     end
+    @styles = Style.all.map { |style| style.name }
   end
 
   
