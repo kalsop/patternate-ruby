@@ -8,21 +8,29 @@
 
 pattern_companies = PatternCompany.create([{name: 'Vogue Patterns'},{name: 'New Look'}])
 pattern_collections = PatternCollection.create([{name: 'Anne Klein', pattern_company: pattern_companies.first},{name: 'Badgely Mishka', pattern_company: pattern_companies.second}])
+styles = Style.create([{name: 'sleeves'},{name: 'dress'},{name: 'lined'}])
+
+
 Pattern.create([
 
-{pattern_company: pattern_companies.first, 
-pattern_number: '8372', 
-pattern_collection: pattern_collections.first, 
-url: 'http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174', 
-main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg', 
-line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'this is my description'},
+  {
+    pattern_company: pattern_companies.first, 
+    pattern_number: '8372', 
+    pattern_collection: pattern_collections.first, 
+    url: 'http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174', 
+    main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg', 
+    line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'this is my description',
+    style: [styles.first, styles.second]
+  },
 
-{pattern_company: pattern_companies.second, 
-pattern_number: '1111', 
-pattern_collection: pattern_collections.second, 
-url: 'http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174', 
-main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg', 
-line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'pattern 2'}
+  {
+    pattern_company: pattern_companies.second, 
+    pattern_number: '1111', 
+    pattern_collection: pattern_collections.second, 
+    url: 'http://voguepatterns.mccall.com/v8766-products-15146.php?page_id=174', 
+    main_image: 'http://voguepatterns.mccall.com/filebin/images/product_images/Full/V8766.jpg', 
+    line_drawing: 'http://voguepatterns.mccall.com/newsletters/img.sewingtoday.com/cat/20000/add_img/V8766.gif', description: 'pattern 2',
+    style: [styles.second, styles.third]
+  }
 ])
 
-Style.create([{name: 'sleeves'},{name: 'dress'},{name: 'lined'}])
