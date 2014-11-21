@@ -26,7 +26,7 @@ details p:nth-child(3) {
 }
 
 input {
-  -webkit-appearance: none;
+/*  -webkit-appearance: none;*/
 }
 
 input[type=text] {
@@ -259,7 +259,20 @@ display: inline-block;
 label {
   display:none;
 }
+/*
+.tag input[type=checkbox] {
+	display:block
+}
 
+.tag label {
+	display:block;
+	padding: 10px;
+	background-color:pink;}
+.tag :checked + .tag label {
+	display:block;
+	padding: 10px;
+	background-color:red;}
+*/
 @media only screen and (max-width: 800px) {
  /* .pattern img {
    width: 98%;

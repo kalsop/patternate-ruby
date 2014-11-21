@@ -1,3 +1,24 @@
+<section>
+	<p>Find sewing patterns by style</p>
+	<form method="POST" class="search">
+		<div class="ui-widget">
+			<label for="tags">Search</label>
+			<input type="text" name="search" placeholder="Start typing to find styles" id="tags" class="ui-autocomplete-input" autocomplete="off">
+
+			<input type="submit" value="Find" onClick="ga('send', 'event', 'Search', 'Click');">
+		</div>
+	</form>     
+</section>
+
+</header>
+		
+<section role="main">
+<div class="currentView">
+<%= result_summary %>
+</div><!--searchCriteria-->
+		
+		 
+
 <% @patterns.each_with_index do | pattern, index | %>
 <article class='pattern'>
   <details onClick="ga('send', 'event', 'Title', 'Expand', '<%= pattern.display_name %>', '<%= index %>');">
@@ -21,3 +42,5 @@
   </div>
 </article>
 <% end %>
+
+ </section>

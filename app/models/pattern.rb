@@ -54,4 +54,12 @@ class Pattern < ActiveRecord::Base
     end
   end
   
+  def has_style? selected_style
+    
+    self.style.any? do | style |  
+      style.id == selected_style.id 
+    end 
+  
+  end 
+  
 end

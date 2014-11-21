@@ -3,6 +3,9 @@ PatternateRuby::Application.routes.draw do
 
 
   resources :patterns, :path => '', only: [:index, :create]
+  resources :tag, only: [:index, :create]
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

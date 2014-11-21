@@ -89,24 +89,9 @@
 
 
 			  
-			  <section>
-			    <p>Find sewing patterns by style</p>
-          <form method="POST" class="search">
-          <div class="ui-widget">
-   <label for="tags">Search</label>
-            <input type="text" name="search" placeholder="Start typing to find styles" id="tags" class="ui-autocomplete-input" autocomplete="off">
-         
-            <input type="submit" value="Find" onClick="ga('send', 'event', 'Search', 'Click');">
-            </div>
-          </form>     
-			  </section>
-		</header>		
-		<section role="main">
-      <div class="currentView">
-        <%= result_summary %>
-        </div><!--searchCriteria-->
+			
         <%= yield %>  
-    </section>
+  
   <footer>
     <a href="https://docs.google.com/forms/d/1M0_sUPYe8E3HMZz0uOXcWjasQmB45VvJVCk2bGPzYB0/viewform" class="feedback">Give feedback</a>
     <a href="#top" class="top">Back to top</a>
