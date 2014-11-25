@@ -15,40 +15,40 @@ require 'pg'
 
 # this is it!!
 
-styles_id = 9
-matched_words = 'drape'
+styles_id = 25
+matched_words = 'pleated skirt'
 
+# needs to be able to check for every case - e.g. sentence case as well
 matching_patterns_query = "select id from patterns where description like '%#{matched_words}%'"
 matching_patterns = @con.exec(matching_patterns_query)
-
-if matching_patterns.entries.size == 0
-  puts "nothing returned"
-end
 
 matching_patterns.each do |row|
   patterns_id = "#{row['id']}"
 
   patterns_styles = {:patterns_id => patterns_id, :styles_id => styles_id}
   
-  # could check to see if this combination exists already...
-  query = "INSERT INTO patterns_styles(pattern_id, style_id) VALUES(#{patterns_id},#{styles_id})"
-  puts query
-  @con.exec(query)
+  check_existing = "SELECT * FROM patterns_styles WHERE pattern_id = #{patterns_id} and style_id = #{styles_id}"
+  results = @con.exec(check_existing)
+  
+  if results.count == 0
+    query = "INSERT INTO patterns_styles(pattern_id, style_id) VALUES(#{patterns_id},#{styles_id})"
+    puts query
+    @con.exec(query)
+  end
   
 end
 
-File.open('/Users/kalsop/Documents/Personal/Dev/patternate/patternate-ruby/scraper/results', 'a+') do | file |
-  matching_patterns.each do | value | 
-    file.write("#{value} || ")
-  end
-  file.write "\n\n" 
-end
 
 
 
-
-
-
+# As each pattern is added to the database
+# tag it with
+# pattern company.name
+# pattern collection.name
+# styles
+#
+# put it in 'review' status
+# review it, and publish it
 
 
 
